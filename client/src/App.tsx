@@ -1,10 +1,25 @@
 import React from "react";
-import { Button } from "antd";
-import "./App.css";
+
+import { Layout, Skeleton } from "antd";
+
+import Navbar from "./components/Navbar";
+import Appointment from "./components/Appointment";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+const { Footer, Content } = Layout;
 
 const App = () => (
   <div className="App">
-    <Button type="primary">Button</Button>
+    <Layout>
+      <Navbar />
+      <Content>
+        {/* <Skeleton /> */}
+        <Appointment />
+      </Content>
+      <Footer>
+        <div>Designed by hsanshine </div>
+      </Footer>
+    </Layout>
   </div>
 );
 
