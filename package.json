@@ -1,0 +1,20 @@
+{
+  "name": "appointments",
+  "version": "1.0.0",
+  "description": "Appointments webapp for a hair shop",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/hsanshine/appointments.git"
+  },
+  "author": "Hamza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hsanshine/appointments/issues"
+  },
+  "homepage": "https://github.com/hsanshine/appointments#readme"
+}
