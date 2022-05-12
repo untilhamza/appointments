@@ -3,8 +3,11 @@ import React from "react";
 import { Layout, Skeleton } from "antd";
 
 import Navbar from "./components/Navbar";
+// import BookingForm from "./components/BookingForm";
+
 import BookingForm from "./components/BookingForm";
-import BookingTable from "./components/BookingTable";
+import Dashboard from "./components/Dashboard";
+import Login from "./components/Login";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 const { Footer, Content } = Layout;
@@ -15,8 +18,9 @@ const App = () => (
       <Navbar />
       <Content>
         {/* <Skeleton /> */}
-        <BookingForm />
-        <BookingTable />
+        {/* <BookingForm /> */}
+        {/* <Dashboard /> */}
+        <Login />
       </Content>
       <Footer>
         <div>Designed by hsanshine </div>

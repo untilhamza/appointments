@@ -1,45 +1,26 @@
-import React, { useState } from "react";
-// import { Form, Input, Button } from "antd";
+import React from "react";
+import { Formik, ErrorMessage } from "formik";
+import * as yup from "yup";
 import moment from "moment";
 import { Form, Button } from "react-bootstrap";
 import { DatePicker } from "antd";
 import TimeSelector from "./TimeSelector";
 
 import "./BookingForm.css";
+const phoneRegex = /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/i;
+
+const schema = yup.object().shape({
+  name: yup.string().required("Name is required!"),
+  phone: yup
+    .string()
+    .min(8, "*Enter a valid phone number")
+    .matches(phoneRegex, "*Enter a valid phone number!")
+    .required("*Phone number is required!"),
+  date: yup.string().required(),
+  time: yup.string().required("*Booking time is required"),
+});
 
 const BookingForm = () => {
-  const [validated, setValidated] = useState(false);
-  const [bookedDate, setBookedDate] = useState(moment());
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [time, setTime] = useState(null);
-
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
-  const handlePhoneChange = (event) => {
-    setPhone(event.target.value);
-  };
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    if (form.checkValidity === false) {
-      event.stopPropagation();
-      console.log("form submission failed");
-      return;
-    }
-    setValidated(true);
-    console.log("Form Success:");
-  };
-  const handleFormCancel = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
-
-  const handleTimeChange = (newTime) => {
-    console.log("the new set time is ", newTime);
-    setTime(newTime);
-  };
-
   const disablePastDates = (submittedValue) => {
     if (!submittedValue) {
       return false;
@@ -50,95 +31,113 @@ const BookingForm = () => {
     );
   };
 
-  const handleDateChange = (momentDate, enteredDate) => {
-    // console.log(enteredDate);
-    // console.log(momentDate.toDate());
-    // const date = new Date(momentDate.toDate());
-    // console.log(date.toDateString());
-    /// const bookedDate = date.toDateString();
-    //choosenDate.format("YYYY-MM-DD").toString();
-    setBookedDate(momentDate);
-    handleTimeChange(null);
-    // console.log(new Date(momentDate.toDate()));
-  };
-
   return (
-    <Form
-      noValidate
-      validated={validated}
-      onSubmit={handleFormSubmit}
-      className="appointmentForm mt-5 mx-auto p-3"
+    <Formik
+      validationSchema={schema}
+      onSubmit={(values) => {
+        console.log(JSON.stringify(values, null, 2));
+      }}
+      initialValues={{
+        name: "Hamza Kyamanywa",
+        phone: "",
+        date: moment(),
+        time: "",
+      }}
     >
-      <Form.Group className="mb-3">
-        <Form.Label>Name</Form.Label>
-        <Form.Control
-          type="text"
-          name="customer"
-          required
-          placeholder="Enter your name"
-          value={name}
-          onChange={handleNameChange}
-        />
-      </Form.Group>
-
-      <Form.Group className="mb-3">
-        <Form.Label>Phone Number</Form.Label>
-        <Form.Control
-          type="tel"
-          name="phone"
-          required
-          placeholder="phone number"
-          value={phone}
-          onChange={handlePhoneChange}
-        />
-        <Form.Text className="text-muted">
-          We dont share your information.
-        </Form.Text>
-      </Form.Group>
-      <Form.Group className="mb-3">
-        <Form.Label>Date</Form.Label>
-        <div>
-          <DatePicker
-            value={bookedDate}
-            onChange={handleDateChange}
-            defaultPickerValue={moment()}
-            disabledDate={disablePastDates}
-            className="w-100"
-          />
-        </div>
-      </Form.Group>
-
-      <Form.Group className="mb-3">
-        <Form.Label></Form.Label>
-        <div>
-          <TimeSelector
-            choosenDate={bookedDate}
-            time={time}
-            onChange={handleTimeChange}
-          />
-        </div>
-      </Form.Group>
-
-      <div className="d-flex justify-content-around p-2">
-        <Button
-          variant="success"
-          type="submit"
-          className="w-100 me-1"
-          disabled={false}
+      {({
+        handleSubmit,
+        handleChange,
+        values,
+        touched,
+        isValid,
+        errors,
+        setFieldValue,
+      }) => (
+        <Form
+          noValidate
+          //   validated={!errors}
+          onSubmit={handleSubmit}
+          className="appointmentForm mt-5 mx-auto p-3 "
         >
-          Confirm Booking
-        </Button>
+          <Form.Group className="mb-3">
+            <Form.Label>Name</Form.Label>
+            <Form.Control
+              type="text"
+              name="name"
+              placeholder="Enter your name"
+              value={values.name}
+              onChange={handleChange}
+              isValid={touched.name && !errors.name}
+            />
+            <div className="text-danger font-italic">
+              <ErrorMessage name="name" />
+            </div>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Phone Number</Form.Label>
+            <Form.Control
+              type="tel"
+              name="phone"
+              placeholder="phone number"
+              value={values.phone}
+              onChange={handleChange}
+              isValid={touched.phone && !errors.phone}
+            />
+            <div className="text-danger font-italic">
+              <ErrorMessage name="phone" />
+            </div>
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Date</Form.Label>
+            <div>
+              <DatePicker
+                value={values.date}
+                onChange={(enteredMoment) => {
+                  setFieldValue("date", enteredMoment);
+                }}
+                defaultPickerValue={moment()}
+                disabledDate={disablePastDates}
+                className="w-100"
+              />
+            </div>
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label></Form.Label>
+            <div>
+              <TimeSelector
+                choosenDate={values.date}
+                time={values.time}
+                onChange={(time) => {
+                  setFieldValue("time", time);
+                }}
+              />
+            </div>
+            <div className="text-danger font-italic">
+              <ErrorMessage name="time" />
+            </div>
+          </Form.Group>
+          <div className="d-flex justify-content-around p-2">
+            <Button
+              variant="success"
+              type="submit"
+              className="w-100 me-1"
+              disabled={false}
+            >
+              Confirm Booking
+            </Button>
 
-        <Button
-          variant="danger"
-          type="button"
-          className="w-100 ms-1"
-          onClick={handleFormCancel}
-        >
-          Cancel
-        </Button>
-      </div>
-    </Form>
+            <Button
+              variant="danger"
+              type="button"
+              className="w-100 ms-1"
+              onClick={() => {}}
+            >
+              Cancel
+            </Button>
+          </div>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

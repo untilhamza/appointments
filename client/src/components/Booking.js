@@ -19,7 +19,7 @@ const Booking = (props) => {
       <td className="text-center">{time}pm</td>
       <td>{name}</td>
       <td className="text-center p-2">
-        <span className={`badge rounded-pill p-2 ${setStatus(status)}`}>
+        <span className={`badge rounded-pill px-2 ${setStatus(status)} w-100`}>
           {" "}
           {status}
         </span>

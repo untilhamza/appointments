@@ -6,7 +6,8 @@ import Button from "react-bootstrap/Button";
 
 const TimeSelector = ({ choosenDate, onChange, time }) => {
   // const [userTime, setUserTime] = useState(time);
-  //console.log("time is ", userTime);
+  const [day, setDay] = useState(choosenDate.format("dddd DD-MM-YYYY"));
+  //console.log("time is ", choosenDate);
   const handleTimeChange = (time) => {
     // setUserTime(time);
     onChange(time);
@@ -14,6 +15,8 @@ const TimeSelector = ({ choosenDate, onChange, time }) => {
 
   useEffect(() => {
     console.log("fetch slot data for ", choosenDate.format("dddd DD-MM-YYYY"));
+    setDay(choosenDate.format("dddd DD-MM-YYYY"));
+    handleTimeChange("");
   }, [choosenDate]);
 
   //console.log(choosenDate.toDate());
@@ -44,11 +47,12 @@ const TimeSelector = ({ choosenDate, onChange, time }) => {
   return (
     <>
       <p className="">
-        Select time slot for
-        <span className="text-success font-weight-bold">
-          {" " + choosenDate.format("dddd DD-MM-YYYY").toString()}
-        </span>
+        Select time slot for : {"  "}
+        <kbd className="text-success font-weight-bold">
+          {choosenDate.format("dddd DD/MM/YYYY").toString()}
+        </kbd>
       </p>
+      <div>{day}</div>
       <div className="container">{buttons}</div>
     </>
   );
