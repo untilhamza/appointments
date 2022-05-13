@@ -1,8 +1,25 @@
 import React from "react";
 import Booking from "./Booking";
-import { BOOKINGS } from "../data";
+import { STATUS_COMPLETED, STATUS_PENDING } from "../hooks/useHttp";
+//import { BOOKINGS } from "../data";
+import { Skeleton } from "antd";
 
-const BookingTable = ({ date }) => {
+const BookingTable = ({ date, bookings, status }) => {
+  let content = "";
+  if (status === STATUS_PENDING) {
+    content = (
+      <tr>
+        <td colSpan={4}>
+          <Skeleton paragraph active />
+        </td>
+      </tr>
+    );
+  }
+  if (status === STATUS_COMPLETED) {
+    content = bookings?.map((booking) => (
+      <Booking key={booking.id} booking={booking} />
+    ));
+  }
   return (
     <table className="table table-sm table-bordered table-striped rounded-4 mt-3 mt-md-0">
       <thead className="thead-dark">
@@ -18,11 +35,7 @@ const BookingTable = ({ date }) => {
           <th scope="col">Modify</th>
         </tr>
       </thead>
-      <tbody>
-        {BOOKINGS?.map((booking) => (
-          <Booking key={booking.id} booking={booking} />
-        ))}
-      </tbody>
+      <tbody>{content}</tbody>
     </table>
   );
 };

@@ -2,12 +2,13 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import { useFormik } from "formik";
 import * as yup from "yup";
-
+import { useHistory } from "react-router-dom";
 import "./PhoneForm.css";
 
 const phoneRegex = /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/i;
 
 const PhoneForm = () => {
+  const history = useHistory();
   const formik = useFormik({
     initialValues: {
       phone: "",
@@ -63,7 +64,9 @@ const PhoneForm = () => {
                   variant="danger"
                   type="button"
                   className="w-100 ms-1"
-                  onClick={() => {}}
+                  onClick={() => {
+                    history.goBack();
+                  }}
                 >
                   Cancel
                 </Button>

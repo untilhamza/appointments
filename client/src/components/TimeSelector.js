@@ -5,19 +5,20 @@ import "./TimeSelector.css";
 import Button from "react-bootstrap/Button";
 
 const TimeSelector = ({ choosenDate, onChange, time }) => {
+  console.log("sent time", time);
   // const [userTime, setUserTime] = useState(time);
   const [day, setDay] = useState(choosenDate.format("dddd DD-MM-YYYY"));
   //console.log("time is ", choosenDate);
-  const handleTimeChange = (time) => {
+  const handleTimeChange = useCallback((time) => {
     // setUserTime(time);
     onChange(time);
-  };
+  }, []);
 
   useEffect(() => {
     console.log("fetch slot data for ", choosenDate.format("dddd DD-MM-YYYY"));
     setDay(choosenDate.format("dddd DD-MM-YYYY"));
     handleTimeChange("");
-  }, [choosenDate]);
+  }, [choosenDate, handleTimeChange]);
 
   //console.log(choosenDate.toDate());
 
@@ -53,7 +54,7 @@ const TimeSelector = ({ choosenDate, onChange, time }) => {
         </kbd>
       </p>
       <div>{day}</div>
-      <div className="container">{buttons}</div>
+      <div className="time-container">{buttons}</div>
     </>
   );
 };

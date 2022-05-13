@@ -1,10 +1,21 @@
+import { BOOKINGS } from "../data";
 const API_URL = "";
 
+async function delay(data) {
+  return new Promise(function (resolve, reject) {
+    setTimeout(() => {
+      resolve(data);
+    }, 2000);
+  });
+}
 //load bookings for given date as json
 const httpGetBookings = async (date) => {
+  console.log(date);
+  //format this date here!!!!
   // setTimeout(() => console.log("got bookings"), 4000);
-  const response = await fetch(`${API_URL}/bookings/${date}`);
-  return await response.json();
+  //const response = await fetch(`${API_URL}/bookings/${date}`);
+  //return await response.json();
+  return delay(BOOKINGS);
 };
 
 //load already booked time slots for given date as json

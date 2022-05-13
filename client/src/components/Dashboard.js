@@ -1,14 +1,12 @@
-import { useState } from "react";
 import BookingTable from "./BookingTable";
 import Calendar from "./Calendar";
 import moment from "moment";
 
-const Dashboard = () => {
-  const [date, setDate] = useState(moment());
+const Dashboard = ({ date, onSelectDate, bookings, status }) => {
   //console.log(date);
   const handleSelectDate = (newDate) => {
-    console.log("new set date is", newDate);
-    setDate(newDate);
+    //console.log("new set date is", newDate);
+    onSelectDate(newDate);
   };
   return (
     <div className="container p-3">
@@ -16,8 +14,8 @@ const Dashboard = () => {
         <div className="col">
           <Calendar onSelectDate={handleSelectDate} />
         </div>
-        <div className="col col-md-7 col-lg-8">
-          <BookingTable date={date} />
+        <div className="col">
+          <BookingTable date={date} bookings={bookings} status={status} />
         </div>
       </div>
     </div>

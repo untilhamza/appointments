@@ -20,7 +20,7 @@ const schema = yup.object().shape({
   time: yup.string().required("*Booking time is required"),
 });
 
-const BookingForm = () => {
+const BookingForm = ({ onCancel, oldData }) => {
   const disablePastDates = (submittedValue) => {
     if (!submittedValue) {
       return false;
@@ -41,7 +41,7 @@ const BookingForm = () => {
         name: "Hamza Kyamanywa",
         phone: "",
         date: moment(),
-        time: "",
+        time: "5:10",
       }}
     >
       {({
@@ -57,7 +57,7 @@ const BookingForm = () => {
           noValidate
           //   validated={!errors}
           onSubmit={handleSubmit}
-          className="appointmentForm mt-5 mx-auto p-3 "
+          className="appointmentForm mx-auto p-3 "
         >
           <Form.Group className="mb-3">
             <Form.Label>Name</Form.Label>
@@ -130,7 +130,7 @@ const BookingForm = () => {
               variant="danger"
               type="button"
               className="w-100 ms-1"
-              onClick={() => {}}
+              onClick={() => onCancel()}
             >
               Cancel
             </Button>

@@ -1,4 +1,4 @@
-.container {
+.time-container {
   display: grid;
   grid-gap: 0.5rem;
   /* grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); */
@@ -11,7 +11,7 @@
 }
 
 @media (min-width: 400px) {
-  .container {
+  .time-container {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }

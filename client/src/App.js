@@ -12,7 +12,7 @@ import Customer from "./pages/Customer";
 import NewBooking from "./pages/NewBooking";
 import ViewAppointment from "./pages/ViewAppointment";
 import CheckAppointment from "./pages/CheckAppointment";
-
+import NotFound from "./pages/NotFound";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 const { Footer, Content } = Layout;
@@ -21,7 +21,7 @@ const App = () => (
   <div className="App">
     <Layout className="h-100">
       <Navbar />
-      <Content className="">
+      <Content className="w-100">
         <Switch>
           <Route path="/login">
             <SignIn />
@@ -29,9 +29,7 @@ const App = () => (
           <Route path="/new-booking">
             <NewBooking />
           </Route>
-          <Route path="/customer">
-            <Customer />
-          </Route>
+
           <Route path="/admin">
             <Admin />
           </Route>
@@ -42,13 +40,18 @@ const App = () => (
           <Route path="/appointment">
             <ViewAppointment />
           </Route>
-
+          <Route path="/">
+            <Customer />
+          </Route>
+          <Route path="*">
+            <NotFound />
+          </Route>
           {/* <Skeleton /> */}
         </Switch>
       </Content>
-      <Footer className="bg-secondary mb-3 footer">
+      {/* <Footer>
         <div>Designed by hsanshine </div>
-      </Footer>
+      </Footer> */}
     </Layout>
   </div>
 );
