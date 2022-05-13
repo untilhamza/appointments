@@ -2,6 +2,7 @@ const API_URL = "";
 
 //load bookings for given date as json
 const httpGetBookings = async (date) => {
+  // setTimeout(() => console.log("got bookings"), 4000);
   const response = await fetch(`${API_URL}/bookings/${date}`);
   return await response.json();
 };

@@ -25,7 +25,7 @@ const Booking = (props) => {
         </span>
       </td>
       <td className="p-2">
-        {<Button className="btn-sm btn-secondary w-100">Edit</Button>}
+        {<Button className="btn-sm btn-secondary w-100">View</Button>}
       </td>
       {}
     </tr>

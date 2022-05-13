@@ -3,6 +3,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import useLogin from "../hooks/useLogin";
 
+import "./Login.css";
+
 const SignupForm = () => {
   const { login, isLoginLoading } = useLogin();
 
@@ -24,18 +26,11 @@ const SignupForm = () => {
       alert(JSON.stringify(values, null, 2));
     },
   });
-  const loginPageStyle = {
-    margin: "32px auto 37px",
-    maxWidth: "530px",
-    background: "#fff",
-    padding: "30px",
-    borderRadius: "10px",
-    boxShadow: "0px 0px 10px 10px rgba(0,0,0,0.15)",
-  };
+
   return (
     <React.Fragment>
       <div className="container">
-        <div className="login-wrapper" style={loginPageStyle}>
+        <div className="login-wrapper login">
           <h2>Login Page</h2>
           <form onSubmit={formik.handleSubmit}>
             <div className="form-group">
@@ -77,7 +72,7 @@ const SignupForm = () => {
                 className="btn btn-primary"
                 disabled={isLoginLoading}
               >
-                Login
+                {`${isLoginLoading ? "Loading..." : "Login"}`}
               </button>
             </div>
           </form>

@@ -5,7 +5,7 @@ import moment from "moment";
 
 const Dashboard = () => {
   const [date, setDate] = useState(moment());
-  console.log(date);
+  //console.log(date);
   const handleSelectDate = (newDate) => {
     console.log("new set date is", newDate);
     setDate(newDate);
