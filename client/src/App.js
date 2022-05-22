@@ -37,7 +37,7 @@ const App = () => (
             {/* maybe pass the appointment id so it can be fetched */}
             <CheckAppointment />
           </Route>
-          <Route path="/appointment">
+          <Route path="/appointment/:id">
             <ViewAppointment />
           </Route>
           <Route path="/">

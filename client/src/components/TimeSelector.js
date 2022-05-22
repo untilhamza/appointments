@@ -5,7 +5,7 @@ import "./TimeSelector.css";
 import Button from "react-bootstrap/Button";
 
 const TimeSelector = ({ choosenDate, onChange, time }) => {
-  console.log("sent time", time);
+  //console.log("sent time", time);
   // const [userTime, setUserTime] = useState(time);
   const [day, setDay] = useState(choosenDate.format("dddd DD-MM-YYYY"));
   //console.log("time is ", choosenDate);
@@ -40,7 +40,7 @@ const TimeSelector = ({ choosenDate, onChange, time }) => {
         key={slot.id}
         onClick={() => handleTimeChange(slot.time)}
       >
-        {slot.time}pm
+        {slot.time} hrs
       </Button>
     )
   );
@@ -49,9 +49,9 @@ const TimeSelector = ({ choosenDate, onChange, time }) => {
     <>
       <p className="">
         Select time slot for : {"  "}
-        <kbd className="text-success font-weight-bold">
+        <span className="text-primary font-weight-bold choosen-date">
           {choosenDate.format("dddd DD/MM/YYYY").toString()}
-        </kbd>
+        </span>
       </p>
       <div>{day}</div>
       <div className="time-container">{buttons}</div>

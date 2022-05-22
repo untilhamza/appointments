@@ -20,7 +20,7 @@ const schema = yup.object().shape({
   time: yup.string().required("*Booking time is required"),
 });
 
-const BookingForm = ({ onCancel, oldData }) => {
+const BookingForm = ({ onCancel, onConfirm, oldData }) => {
   const disablePastDates = (submittedValue) => {
     if (!submittedValue) {
       return false;
@@ -34,14 +34,16 @@ const BookingForm = ({ onCancel, oldData }) => {
   return (
     <Formik
       validationSchema={schema}
-      onSubmit={(values) => {
-        console.log(JSON.stringify(values, null, 2));
+      onSubmit={(values, { resetForm }) => {
+        //submitting data!
+        onConfirm(values);
+        resetForm();
       }}
       initialValues={{
-        name: "Hamza Kyamanywa",
+        name: "",
         phone: "",
         date: moment(),
-        time: "5:10",
+        time: "",
       }}
     >
       {({

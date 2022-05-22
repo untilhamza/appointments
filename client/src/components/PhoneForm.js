@@ -7,7 +7,7 @@ import "./PhoneForm.css";
 
 const phoneRegex = /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/i;
 
-const PhoneForm = () => {
+const PhoneForm = ({ onConfirm, onCancel }) => {
   const history = useHistory();
   const formik = useFormik({
     initialValues: {
@@ -21,10 +21,11 @@ const PhoneForm = () => {
         .required("*Phone number is required!"),
     }),
     onSubmit: (values) => {
-      const REST_API_URL = "YOUR_REST_API_URL";
+      //const REST_API_URL = "YOUR_REST_API_URL";
       //call method to login here
+      onConfirm(values);
 
-      alert(JSON.stringify(values, null, 2));
+      //alert(JSON.stringify(values, null, 2));
     },
   });
   return (
@@ -64,11 +65,9 @@ const PhoneForm = () => {
                   variant="danger"
                   type="button"
                   className="w-100 ms-1"
-                  onClick={() => {
-                    history.goBack();
-                  }}
+                  onClick={onCancel}
                 >
-                  Cancel
+                  Back
                 </Button>
               </div>
             </form>

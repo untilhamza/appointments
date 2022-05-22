@@ -1,4 +1,6 @@
 .appointment-card {
   width: 22rem;
-  height: 20rem;
+}
+.booking-data {
+  text-align: justify;
 }
